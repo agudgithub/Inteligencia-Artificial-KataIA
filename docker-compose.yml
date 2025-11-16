@@ -1,0 +1,112 @@
+services:
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: neo4j2
+    restart: unless-stopped
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/test12345
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+      - NEO4J_dbms_security_procedures_allowlist=apoc.*
+      - NEO4J_apoc_trigger_enabled=true
+      - NEO4J_apoc_scheduler_enabled=true
+      - NEO4J_apoc_uuid_enabled=true
+      - NEO4J_apoc_ttl_enabled=true
+      - NEO4J_server_default__listen__address=0.0.0.0
+      - NEO4J_server_bolt_advertised__address=:7687
+    volumes:
+      - ./data:/data
+      - ./logs:/logs
+      - ./plugins:/plugins
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >
+          cypher-shell -a bolt://localhost:7687 -u neo4j
+          -p "$${NEO4J_AUTH#*/}" 'RETURN 1' || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 60
+      start_period: 90s
+
+
+
+  daemon:
+    build: .                # Usa el Dockerfile local
+    container_name: tutor_daemon
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - .:/app              # para que vea tus archivos locales
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=test12345
+      - PYTHONUNBUFFERED=1
+
+# ──────────────────────────────────────────────
+  # NUEVO: servicio con Ollama
+  # ──────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"          # por si querés probar desde el host
+    volumes:
+      - ollama-data:/root/.ollama
+    # el entrypoint por defecto corre `ollama serve`, no hace falta tocarlo
+
+  # ──────────────────────────────────────────────
+  # NUEVO: servicio para llm_qa.py
+  # ──────────────────────────────────────────────
+  llm_tutor:
+    build: .                   # misma imagen que tutor_daemon
+    container_name: llm_tutor
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=test12345
+      # IMPORTANTÍSIMO: así ChatOllama habla con el contenedor ollama
+      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - PYTHONUNBUFFERED=1
+    # Lo dejamos "idle" y entramos con exec para usar el CLI
+    command: ["tail", "-f", "/dev/null"]
+
+  # ──────────────────────────────────────────────
+  # NUEVO: job para cargar exercises.csv al inicio
+  # ──────────────────────────────────────────────
+  load_exercises:
+    build: .                   # misma imagen Python que daemon/llm_tutor
+    container_name: load_exercises
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    working_dir: /app
+    volumes:
+      - .:/app                 # para ver load_exercises.py y exercises.csv
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=test12345
+      - PYTHONUNBUFFERED=1
+    # corre una sola vez y termina
+    command: ["python", "-u", "load_exercises.py"]
+
+volumes:
+  ollama-data:

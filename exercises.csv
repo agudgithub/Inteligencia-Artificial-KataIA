@@ -1,0 +1,13 @@
+id;tema_principal;dificultad;enunciado;tests_publicos;tests_privados
+E_SumaDosNumeros;variables_y_tipos;facil;Implementa una funcion suma(a, b) que retorne la suma de ambos numeros.;2 3 -> 5 | -1 1 -> 0;-1000 999 -> -1 | 0 0 -> 0
+E_RestaDosNumeros;variables_y_tipos;facil;Implementa una funcion resta(a, b) que retorne a - b.;5 3 -> 2 | 0 7 -> -7;-3 -5 -> 2 | 10 0 -> 10
+E_EsPar;control_de_flujo;facil;Implementa una funcion es_par(n) que retorne True si n es par y False si es impar.;2 -> True | 5 -> False;0 -> True | -4 -> True
+E_MaximoLista;estructuras_de_datos;facil;Implementa max_lista(xs) que retorne el maximo de una lista sin usar max().;[1, 2, 3] -> 3 | [-5, -2] -> -2;[10] -> 10 | [0, 0, 0] -> 0
+E_PromedioLista;estructuras_de_datos;media;Implementa promedio(xs) que reciba una lista de numeros y retorne su promedio. Si la lista esta vacia, debe retornar 0.;[1, 2, 3, 4] -> 2.5 | [10, 0] -> 5.0;[0] -> 0.0 | [] -> 0.0
+E_ContarMayoresQue;control_de_flujo;media;Implementa contar_mayores_que(xs, umbral) que cuente cuantos elementos de la lista xs son estrictamente mayores que umbral.;[1, 5, 7, 0], 3 -> 2 | [10, 10, 10], 9 -> 3;[-1, -2, -3], -2 -> 1 | [], 5 -> 0
+E_ContarVocales;errores_y_debugging;media;Implementa contar_vocales(texto) que retorne cuantas vocales (a, e, i, o, u) hay en el string recibido, sin distinguir mayusculas/minusculas.;"hola" -> 2 | "Python" -> 1;"AEIOU" -> 5 | "bbb" -> 0
+E_ReversaCadena;errores_y_debugging;facil;Implementa invertir(texto) que retorne el string texto invertido (al reves).;"hola" -> "aloh" | "" -> "";"a" -> "a" | "ab" -> "ba"
+E_FactorialIterativo;control_de_flujo;media;Implementa factorial(n) de forma iterativa, suponiendo que n es un entero mayor o igual a 0. Por convenio, factorial(0) = 1.;0 -> 1 | 4 -> 24;1 -> 1 | 5 -> 120
+E_NumerosHastaN;control_de_flujo;facil;Implementa numeros_hasta_n(n) que retorne una lista con los numeros del 1 al n (inclusive). Si n es menor que 1, debe retornar una lista vacia.;3 -> [1, 2, 3] | 1 -> [1];0 -> [] | -5 -> []
+E_FiltrarParesLista;estructuras_de_datos;facil;Implementa filtrar_pares(xs) que retorne una nueva lista solo con los numeros pares de xs.;[1, 2, 3, 4] -> [2, 4] | [5, 7] -> [];[2, 2, 2] -> [2, 2, 2] | [] -> []
+E_PotenciaSimple;variables_y_tipos;media;Implementa potencia(base, exponente) que retorne base elevado a exponente usando el operador **.;2 3 -> 8 | 5 0 -> 1;3 2 -> 9 | 10 1 -> 10
