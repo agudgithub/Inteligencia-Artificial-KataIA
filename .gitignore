@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Entornos virtuales
+venv/
+.env/
+.venv/
+
+# Bases de datos y datos temporales
+data/
+logs/
+plugins/
+
+# Archivos de configuración locales
+*.env
