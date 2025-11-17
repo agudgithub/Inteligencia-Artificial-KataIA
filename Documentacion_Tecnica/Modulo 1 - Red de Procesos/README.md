@@ -16,7 +16,7 @@ Incluye fragmentos de código importantes o enlaces a archivos relevantes dentro
 ## Capturas o ejemplos de funcionamiento
 Puedes visualizar el diagrama de procesos aquí:
 
-![Diagrama de procesos](diagrama_de_procesos.mmd)
+![Diagrama de procesos](procesos.png)
 
 Agrega otras imágenes, diagramas o ejemplos de uso para ilustrar el funcionamiento.
 
