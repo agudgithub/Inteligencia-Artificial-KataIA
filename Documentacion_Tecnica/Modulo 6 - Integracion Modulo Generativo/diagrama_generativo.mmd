@@ -1,0 +1,15 @@
+flowchart TD
+    subgraph LLM_Integration["Módulo 6 - Integración Generativa"]
+        A[Estudiante] -->|Pregunta| B[llm_qa.py Preguntas y Respuestas]
+        B -->|Consulta contexto| C[Neo4j Grafo de conocimiento]
+        B -->|Llama3| D[Ollama Langchain Modelo Generativo]
+        B -->|Actualiza estado| C
+        B -->|Dispara triggers| E[daemon.py Logica difusa y triggers]
+        E -->|Actualiza estado| C
+        E -->|Intervenciones| B
+        B -->|Respuesta| A
+    end
+    style LLM_Integration fill:#eef,stroke:#678,stroke-width:1px;
+    style D fill:#ffe,stroke:#aa6,stroke-width:1px;
+    style C fill:#efe,stroke:#6a6,stroke-width:1px;
+    style E fill:#f9f,stroke:#a6a,stroke-width:1px;

@@ -230,9 +230,11 @@ llm = ChatOllama(
 
 
 def get_conversation_history(sess, student_name: str, limit: int = 3):
-    """
-    Obtiene las últimas N preguntas y respuestas del estudiante.
-    Retorna lista de tuplas [(pregunta, respuesta), ...]
+    """Obtiene un historial acotado y resumido de la conversación.
+
+    - Toma solo las últimas `limit` interacciones.
+    - Recorta pregunta y respuesta a un máximo de 280 caracteres.
+    De esta forma evitamos prompts muy largos y repetitivos para el LLM.
     """
     cy = """
     MATCH (e:Estudiante {name:$name})-[:PREGUNTA]->(q:Question)
@@ -247,8 +249,16 @@ def get_conversation_history(sess, student_name: str, limit: int = 3):
     records = sess.run(cy, name=student_name, limit=limit)
     history = []
     for rec in records:
-        if rec["pregunta"] and rec["respuesta"]:
-            history.append((rec["pregunta"], rec["respuesta"]))
+        pregunta = (rec["pregunta"] or "").strip()
+        respuesta = (rec["respuesta"] or "").strip()
+        if not pregunta or not respuesta:
+            continue
+        # Recortar a 280 caracteres para que el historial no explote el contexto
+        if len(pregunta) > 280:
+            pregunta = pregunta[:280] + "..."
+        if len(respuesta) > 280:
+            respuesta = respuesta[:280] + "..."
+        history.append((pregunta, respuesta))
     return history
 
 
