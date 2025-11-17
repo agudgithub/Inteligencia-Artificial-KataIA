@@ -29,7 +29,6 @@ Este módulo describe el flujo general de interacción entre el estudiante, el t
 - [diagrama_de_procesos.mmd](diagrama_de_procesos.mmd): diagrama de procesos en formato Mermaid.
 
 ## Capturas o ejemplos de funcionamiento
-Puedes visualizar el diagrama de procesos aquí:
 
 ![Diagrama de procesos](procesos.png)
 

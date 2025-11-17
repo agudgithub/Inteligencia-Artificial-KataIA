@@ -25,7 +25,6 @@ Este módulo implementa y gestiona la base de datos orientada a grafos (Neo4j) q
 - [load_exercises.py](../../../load_exercises.py): carga de ejercicios y nodos al grafo.
 
 ## Capturas o ejemplos de funcionamiento
-Puedes visualizar ejemplos de la base de grafos aquí:
 
 ![Grafo completo](graph.png)
 ![Grafo reducido](graph_reducido.png)

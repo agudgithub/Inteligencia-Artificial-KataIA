@@ -28,7 +28,6 @@ Este módulo implementa la estructura de conocimiento basada en frames, modeland
 - [general_frames.mmd](general_frames.mmd): diagrama general de slots y facets.
 
 ## Capturas o ejemplos de funcionamiento
-Puedes visualizar los diagramas de la estructura de frames aquí:
 
 ![Diagrama de frames](diagrama_frames.png)
 ![Red de frames](red_frames.png)

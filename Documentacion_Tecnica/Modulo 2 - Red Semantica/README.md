@@ -25,7 +25,6 @@ Este módulo modela la red semántica de los conceptos de Python, sus relaciones
 - [red_semantica.mmd](red_semantica.mmd): diagrama Mermaid de la red semántica.
 
 ## Capturas o ejemplos de funcionamiento
-Puedes visualizar el diagrama de la red semántica aquí:
 
 ![Red semántica](red_semantica.png)
 
