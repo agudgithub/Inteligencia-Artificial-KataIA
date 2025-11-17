@@ -11,6 +11,34 @@ TutorIA es un sistema tutor inteligente diseñado para acompañar el aprendizaje
 - **Lógica difusa y triggers** para intervenciones afectivas y pedagógicas automáticas.
 - **Arquitectura modular** y extensible, con integración de distintos componentes.
 
+
+## Cómo ejecutar el proyecto
+
+1. **Clonar el repositorio**
+   ```sh
+   git clone https://github.com/agudgithub/Inteligencia-Artificial-KataIA.git
+   cd KataIA
+   ```
+2. **Instalar Docker**
+   - Desde la pagina oficial para el sistema operativo respectivo: 
+   `https://www.docker.com/`
+
+3. **Inicializar la base de datos Neo4j y componentes**
+   - Levanta Neo4j (usando Docker Compose):
+     ```sh
+     docker-compose up -d
+     ```
+   - Ejecuta el script Cypher para crear la estructura y datos base:
+     - Ingresa a la consola de Neo4j ( desde el browser en `http://localhost:7474/browser/`)
+     - Ejecuta el contenido de [`tutorIA_final_full.cypher`](tutorIA_final_full.cypher)
+
+4. **Levantar el sistema TutorIA**
+   - Para iniciar el módulo principal (preguntas/respuestas) desde la terminal:
+     ```sh
+     docker compose exec llm_tutor python llm_qa.py
+     ```
+
+
 ## Índice de la Documentación Técnica
 
 La documentación técnica se encuentra en la carpeta [`Documentacion_Tecnica`](Documentacion_Tecnica/):
