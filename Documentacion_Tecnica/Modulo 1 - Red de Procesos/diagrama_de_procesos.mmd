@@ -1,0 +1,43 @@
+flowchart TD
+  %% Actores y recursos
+  U[(Estudiante)]:::actor --> A[Inicio]
+  T[(Tutor IA)]:::actor --> A
+  Repo[(Banco Python<br/>Conceptos + Ejercicios + Hints)]:::data --> D
+  Run[(Runner Sandbox)]:::tool
+  A --> B[Definir metas y alcance: modulos Python]
+  B --> C[Diagnóstico inicial: pretest + perfil + motivación]
+  C --> D[Plan didáctico inicial: objetivos + secuencias + criterios de dominio]
+
+  %% Bucle por objetivo
+  D --> E{Bucle por objetivo}
+  E --> I1[ENTRADA: activar previos + micro-contenido Python + consigna]
+  I1 --> P1[PROCESO: práctica guiada/independiente en ZDP]
+  P1 --> S1[SALIDA: intento: código/pasos]
+
+  %% Evaluación con tests públicos/privados + señales
+  S1 --> X1[Ejecutar en Runner con tests públicos]
+  X1 --> X2[Ejecutar tests privados: ocultos]
+  X2 --> EV1[EVALUACIÓN: exactitud, proceso, tiempo, ayudas,<br/>señales afectivas + score_confianza + entropía H + trazabilidad]
+  EV1 --> CD{¿Cumple criterio de dominio?}
+  CD -->|Sí| CONS[Consolidar: variación + explicación inversa]
+  CD -->|No| ADAPT[Adaptar dificultad, modalidad, ritmo]
+
+  %% Disparadores por incertidumbre/afecto
+  EV1 -->|H alta o mu_conf_baja alta| REG{¿Frustración/Fatiga alta?}
+  ADAPT --> REG
+  REG -->|Sí| PSICO[Intervención psicoeducativa: pausa, reencuadre, micro-éxito]
+  REG -->|No| MANT[Andamiaje: pistas graduadas, descomposición, ejemplo trabajado]
+
+  %% Detección de errores Python → remediación específica
+  EV1 --> PE{¿Error Python detectado?}
+  PE -->|Sí| FIX[Minilección: causa + ejemplo malo/bueno + pista focalizada]
+  FIX --> LOG
+  CONS --> LOG[Registrar progreso y actualizar modelo del estudiante]
+  PSICO --> LOG
+  MANT --> LOG
+  LOG --> E
+  E -->|Sin más objetivos| Z[Cierre: repaso espaciado + meta-reflexión]
+
+  classDef actor fill:#eef,stroke:#678,stroke-width:1px;
+  classDef tool fill:#efe,stroke:#6a6,stroke-width:1px;
+  classDef data fill:#ffe,stroke:#aa6,stroke-width:1px;

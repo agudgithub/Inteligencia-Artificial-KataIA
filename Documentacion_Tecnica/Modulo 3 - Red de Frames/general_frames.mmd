@@ -1,0 +1,27 @@
+flowchart LR
+  subgraph Ejercicio[:Frame]
+    E((Ejercicio))
+  end
+  subgraph Slots[:Slot]
+    EN[enunciado]
+    TP[tests_publicos]
+    TV[tests_privados]
+    DF[dificultad]
+  end
+  subgraph Facets[:Facet]
+    F1[requerido=true]
+    F2[tipo=string]
+    F3[tipo=json]
+    F4[rango=0,1]
+  end
+
+  E -- HAS_SLOT --> EN
+  E -- HAS_SLOT --> TP
+  E -- HAS_SLOT --> TV
+  E -- HAS_SLOT --> DF
+
+  EN -- HAS_FACET --> F1
+  EN -- HAS_FACET --> F2
+  TP -- HAS_FACET --> F3
+  TV -- HAS_FACET --> F3
+  DF -- HAS_FACET --> F4

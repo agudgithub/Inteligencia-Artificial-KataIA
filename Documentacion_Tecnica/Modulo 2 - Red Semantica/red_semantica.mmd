@@ -1,0 +1,85 @@
+flowchart TD
+  %% ======== NODOS ========
+  %% Actores y Servicios
+  U[Estudiante]:::actor
+  T[TutorIA]:::actor
+  R[Runner]:::servicio
+  BR[BancoRecursos]:::servicio
+
+  %% Conocimiento (objetivos y dominio)
+  LO[LearningObjective]:::conocimiento
+  C[PythonConcept]:::conocimiento
+
+  %% Instrucción y Producción (Entrada/Proceso/Salida)
+  MC[MicroContenido]:::instruccion
+  CS[Consigna]:::instruccion
+  Ejer[Ejercicio]:::instruccion
+  Att[Attempt]:::instruccion
+
+  %% Evaluación
+  Ev[Evaluacion]:::evaluacion
+  PT[PoliticaTest]:::policy
+  M[Misconception]:::evaluacion
+
+  %% Acción/Adaptación
+  H[Hint]:::accion
+  FP[FeedbackPlan]:::accion
+  IA[IntervencionAfectiva]:::accion
+
+  %% Estado y Señales
+  ST[StudentState]:::estado
+  MZ[Maestria]:::estado
+  AF[Afecto]:::estado
+  CF[Confianza]:::estado
+
+  %% ======== RELACIONES (verbo claro) ========
+  %% Selección y propuesta (INSTRUCCIÓN)
+  T -->|SELECCIONA_SEGUN| LO
+  LO -->|DESCOMPONE_EN| C
+  T -->|ENTREGA| MC
+  T -->|ENTREGA| CS
+  T -->|PROPONE| Ejer
+  Ejer -->|APUNTA_A| C
+
+  %% Producción (SALIDA)
+  U -->|REALIZA| Att
+  Att -->|USA| Ejer
+  R -->|EJECUTA| Att
+
+  %% Evaluación (EVA)
+  Ev -->|EVALUA| Att
+  Ev -->|USA| PT
+  Ev -->|DETECTA| M
+
+  %% Acción / Adaptación (ACC)
+  M -->|SE_CORRIGE_CON| H
+  T -->|OFRECE| H
+  T -->|CONSTRUYE| FP
+  FP -->|UTILIZA| BR
+  T -->|APLICA| IA
+
+  %% Estado y señales (observación y modelo)
+  Att -->|EVIDENCIA| MZ
+  Att -->|GENERA| AF
+  Att -->|GENERA| CF
+  T -->|ACTUALIZA| ST
+  ST -->|ESTIMA_EN| MZ
+  ST -->|REGISTRA| AF
+  ST -->|REGISTRA| CF
+
+  %% ======== ESTILOS ========
+  classDef actor fill:#e8f0fe,stroke:#5a78d0,stroke-width:1px;
+  classDef servicio fill:#eaf7ff,stroke:#57a7c9,stroke-width:1px;
+  classDef conocimiento fill:#e6fffb,stroke:#00bfa6,stroke-width:1px;
+  classDef instruccion fill:#e6ffe6,stroke:#58a55c,stroke-width:1px;
+  classDef evaluacion fill:#fff4e6,stroke:#d9902f,stroke-width:1px;
+  classDef accion fill:#f3e8ff,stroke:#8e6ac8,stroke-width:1px;
+  classDef estado fill:#ffe6f0,stroke:#d56b8c,stroke-width:1px;
+  classDef policy fill:#fff2cc,stroke:#b58900,stroke-width:1px;
+
+  %% Opcional: estilos de enlaces por fase
+  linkStyle 0,1,2 stroke:#58a55c,stroke-width:1.5px;   
+  linkStyle 3,4,5 stroke:#58a55c,stroke-width:1.5px;
+  linkStyle 6,7,8 stroke:#d9902f,stroke-width:1.5px;   
+  linkStyle 9,10,11,12,13 stroke:#8e6ac8,stroke-width:1.5px; 
+  linkStyle 14,15,16,17,18,19 stroke:#d56b8c,stroke-width:1.5px; 

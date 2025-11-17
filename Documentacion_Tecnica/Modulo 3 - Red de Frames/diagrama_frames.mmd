@@ -1,0 +1,37 @@
+flowchart TD
+  T[TutorIA]:::actor -->|SELECCIONA_SEGUN| LO[LearningObjective]:::know
+  LO -->|DESCOMPONE_EN| C[PythonConcept]:::know
+
+  T -->|ENTREGA| MC[MicroContenido]:::instr
+  T -->|ENTREGA| CS[Consigna]:::instr
+  T -->|PROPONE| E[Ejercicio]:::instr
+  U[Estudiante]:::actor -->|REALIZA| A[Attempt]:::instr
+  A -->|USA| E
+  R[Runner]:::svc -->|EJECUTA| A
+
+  EV[Evaluacion]:::eval -->|EVALUA| A
+  EV -->|USA| PT[PoliticaTest]:::policy
+  EV -->|DETECTA| M[Misconception]:::eval
+  H[Hint]:::act -->|CORRIGE| M
+  T -->|OFRECE| H
+
+  A -->|EVIDENCIA| MZ[Maestria]:::state
+  A -->|GENERA| AF[Afecto]:::state
+  A -->|GENERA| CF[Confianza]:::state
+  T -->|ACTUALIZA| ST[StudentState]:::state
+  ST -->|ESTIMA_EN| MZ
+  ST -->|REGISTRA| AF
+  ST -->|REGISTRA| CF
+
+  T -->|CONSTRUYE| FP[FeedbackPlan]:::act
+  FP -->|UTILIZA| BR[BancoRecursos]:::svc
+  T -->|APLICA| IA[IntervencionAfectiva]:::act
+
+  classDef actor fill:#e8f0fe,stroke:#5a78d0;
+  classDef svc fill:#eaf7ff,stroke:#57a7c9;
+  classDef know fill:#e6fffb,stroke:#00bfa6;
+  classDef instr fill:#e6ffe6,stroke:#58a55c;
+  classDef eval fill:#fff4e6,stroke:#d9902f;
+  classDef act fill:#f3e8ff,stroke:#8e6ac8;
+  classDef state fill:#ffe6f0,stroke:#d56b8c;
+  classDef policy fill:#fff2cc,stroke:#b58900;

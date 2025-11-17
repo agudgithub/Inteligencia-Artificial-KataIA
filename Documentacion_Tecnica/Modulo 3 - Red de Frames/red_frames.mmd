@@ -1,0 +1,80 @@
+erDiagram
+  %% ==== Frames principales ====
+  TUTORIA ||--o{ LEARNING_OBJECTIVE : SELECCIONA_SEGUN
+  LEARNING_OBJECTIVE ||--o{ PYTHON_CONCEPT : DESCOMPONE_EN
+  TUTORIA ||--o{ EJERCICIO : PROPONE
+  EJERCICIO ||--o{ PYTHON_CONCEPT : APUNTA_A
+  ESTUDIANTE ||--o{ ATTEMPT : REALIZA
+  ATTEMPT }o--|| EJERCICIO : USA
+  RUNNER ||--o{ ATTEMPT : EJECUTA
+  EVALUACION ||--o{ ATTEMPT : EVALUA
+  EVALUACION ||--o{ POLITICA_TEST : USA
+  EVALUACION ||--o{ MISCONCEPTION : DETECTA
+  HINT ||--o{ MISCONCEPTION : CORRIGE
+  TUTORIA ||--o{ HINT : OFRECE
+  TUTORIA ||--o{ FEEDBACK_PLAN : CONSTRUYE
+  FEEDBACK_PLAN ||--o{ BANCO_RECURSOS : UTILIZA
+  ATTEMPT ||--o{ MAESTRIA : EVIDENCIA
+  ATTEMPT ||--o{ AFECTO : GENERA
+  ATTEMPT ||--o{ CONFIANZA : GENERA
+  TUTORIA ||--o{ STUDENT_STATE : ACTUALIZA
+  STUDENT_STATE ||--o{ MAESTRIA : ESTIMA_EN
+  STUDENT_STATE ||--o{ AFECTO : REGISTRA
+  STUDENT_STATE ||--o{ CONFIANZA : REGISTRA
+  TUTORIA ||--o{ MICROCONTENIDO : ENTREGA
+  TUTORIA ||--o{ CONSIGNA : ENTREGA
+  TUTORIA ||--o{ INTERVENCION_AFECTIVA : APLICA
+
+  %% ==== Slots por Frame ====
+  EJERCICIO {
+    string enunciado
+    json tests_publicos
+    json tests_privados
+    float dificultad 
+  }
+  ATTEMPT {
+    string codigo
+    json resultado_tests
+    float tiempo
+    int n_hints
+    json errores_detectados
+    datetime timestamp
+  }
+  HINT {
+    string texto
+    int nivel
+  }
+  MISCONCEPTION {
+    string patron_codigo
+    string descripcion
+    string correccion
+  }
+  LEARNING_OBJECTIVE {
+    string taxonomia_bloom
+    string criterio_exito
+    float peso
+  }
+  STUDENT_STATE {
+    json maestria
+    float confianza
+    float frustracion
+    string estilo
+    string ritmo
+  }
+  MICROCONTENIDO {
+    string contenido_uri
+    int duracion_estimada
+  }
+  INTERVENCION_AFECTIVA {
+    string tipo_intervencion
+    string disparador
+  }
+
+  %% ==== Facets (metadatos) ====
+  FACET {
+    boolean requerido
+    string tipo
+    string cardinalidad
+    string rango
+    string default
+  }
