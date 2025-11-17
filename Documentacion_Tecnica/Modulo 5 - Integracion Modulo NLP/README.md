@@ -24,19 +24,25 @@ Este módulo integra el procesamiento de lenguaje natural (NLP) para la clasific
 - [tutorIA_final_full.cypher](../../../tutorIA_final_full.cypher): ejemplos de preguntas y temas en el grafo.
 
 ## Capturas o ejemplos de funcionamiento
+
 **Actualización de temas en Neo4j:**
+
 ![Actualización de temas en Neo4j](tabla_neo4j_actualizacion.png)
 
 **Listado de temas detectados:**
+
 ![Listado de temas](temas.png)
 
 **Precisión del modelo de clasificación:**
+
 ![Precisión del modelo](precision.png)
 
 **Ejemplo de grafo generado:**
+
 ![Grafo de ejemplo](grafo_ejemplo.png)
 
 **Matriz de confusión del clasificador:**
+
 ![Matriz de confusión](matriz_confusion.png)
 
 Estas imágenes muestran:
